@@ -13,7 +13,7 @@
     // <param name="event">MessageSend event is automatically passed by BlockOnSend code to the function specified in the manifest.</param>
     function validateBody(event) {
       console.log('validateBody');
-      Office.context.ui.displayDialogAsync('https://example.com/', {height: 30, width: 20, promptBeforeOpen:true },
+      Office.context.ui.displayDialogAsync('https://markdon.github.io/Outlook-Add-in-On-Send/', {height: 30, width: 20, promptBeforeOpen:true },
           function (asyncResult) {
           console.log('validateBody ~ asyncResult', asyncResult);
               let dialog = asyncResult.value;
