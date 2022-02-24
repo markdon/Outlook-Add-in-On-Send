@@ -12,7 +12,14 @@
     // Entry point for Contoso Message Body Checker add-in before send is allowed.
     // <param name="event">MessageSend event is automatically passed by BlockOnSend code to the function specified in the manifest.</param>
     function validateBody(event) {
-        mailboxItem.body.getAsync("html", { asyncContext: event }, checkBodyOnlyOnSendCallBack);
+      Office.context.ui.displayDialogAsync('https://example.com/', {height: 30, width: 20},
+          function (asyncResult) {
+              let dialog = asyncResult.value;
+              dialog.addEventHandler(Office.EventType.DialogEventReceived, function(){
+                event.success({ allowEvent:true });
+              });
+          }
+      );
     }
 
     // Invoke by Contoso Subject and CC Checker add-in before send is allowed.
@@ -59,7 +66,8 @@
     // Add a CC to the email.  In this example, CC contoso@contoso.onmicrosoft.com
     // <param name="event">MessageSend event passed from calling function</param>
     function addCCOnSend(event) {
-        mailboxItem.cc.setAsync(['Contoso@contoso.onmicrosoft.com'], { asyncContext: event });        
+      console.log('addCCOnSend');
+        // mailboxItem.cc.setAsync(['huddodev@isw.net.au'], { asyncContext: event });        
     }
 
     // Check if the subject should be changed. If it is already changed allow send, otherwise change it.
