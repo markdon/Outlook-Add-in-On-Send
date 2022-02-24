@@ -12,10 +12,13 @@
     // Entry point for Contoso Message Body Checker add-in before send is allowed.
     // <param name="event">MessageSend event is automatically passed by BlockOnSend code to the function specified in the manifest.</param>
     function validateBody(event) {
+      console.log('validateBody');
       Office.context.ui.displayDialogAsync('https://example.com/', {height: 30, width: 20, promptBeforeOpen:true },
           function (asyncResult) {
+          console.log('validateBody ~ asyncResult', asyncResult);
               let dialog = asyncResult.value;
-              dialog.addEventHandler(Office.EventType.DialogEventReceived, function(){
+              dialog.addEventHandler(Office.EventType.DialogEventReceived, function(event){
+                console.log('dialog.addEventHandler ~ event', event);
                 event.success({ allowEvent:true });
               });
           }
